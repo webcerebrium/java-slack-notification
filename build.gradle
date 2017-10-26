@@ -1,0 +1,104 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = "com.webcerebrium"
+archivesBaseName = "slack-notification"
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+dependencies {
+
+    // JSON parsing / handling
+    compile group: 'org.json', name: 'json', version: '20160810'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+
+    // TESTING
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    // SIMPLE LOGGING
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.16'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+
+    // APACHE COMMONS for WHOIS NET REQUESTS
+    compile 'commons-net:commons-net:3.3'
+    // APACHE COMMONS IO
+    compile 'commons-io:commons-io:2.4'
+    // COMMON CODECS
+    compile 'commons-codec:commons-codec:1.9'
+    // APACHE COMMONS COLLECTION
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+    // GUAVA
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
+    // Lombok, Improving logging
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.4'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Binance API Client'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Binance Cryptocurrency Exchange API Client'
+                url 'https://github.com/webcerebrium/java-binance-api'
+
+                scm {
+                    url 'scm:git@github.com/webcerebrium/java-slack-notification.git'
+                    connection 'scm:git@github.com/webcerebrium/java-slack-notification.git'
+                    developerConnection 'scm:git@github.com/webcerebrium/java-slack-notification.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'wcrbrm'
+                        name 'Viktor Lopata'
+                        email 'v.lopata@webcerebrium.com'
+                    }
+                }
+            }
+        }
+    }
+}
