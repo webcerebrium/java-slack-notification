@@ -16,3 +16,4 @@ gradle.properties
 !gradle-wrapper.jar
 
 testdb.tmp/
+groovy/

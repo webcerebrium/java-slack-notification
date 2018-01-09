@@ -8,7 +8,7 @@ targetCompatibility = 1.8
 
 group = "com.webcerebrium"
 archivesBaseName = "slack-notification"
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     mavenCentral()
@@ -73,11 +73,11 @@ uploadArchives {
             }
 
             pom.project {
-                name 'Binance API Client'
+                name 'Slack Notification Library'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'Binance Cryptocurrency Exchange API Client'
-                url 'https://github.com/webcerebrium/java-binance-api'
+                description 'Lightweight API Wrapper to send Slack Notifications'
+                url 'https://github.com/webcerebrium/java-slack-notification'
 
                 scm {
                     url 'scm:git@github.com/webcerebrium/java-slack-notification.git'

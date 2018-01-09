@@ -12,20 +12,30 @@ Add the following Maven dependency to your project's `pom.xml`:
 <dependency>
   <groupId>com.webcerebrium</groupId>
   <artifactId>slack-notification</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
 #### with Gradle
 ```
-compile group: 'com.webcerebrium', name: 'slack-notification', version: '0.1.0'
+compile group: 'com.webcerebrium', name: 'slack-notification', version: '0.1.1'
 ```
 
 #### with Grapes
 ```
 @Grapes([ 
-@Grab(group = 'com.webcerebrium', module = 'slack-notification', version = '0.1.0')
+@Grab(group = 'com.webcerebrium', module = 'slack-notification', version = '0.1.1')
 ])
+```
+
+### with latest source code
+
+After `git clone`, please run `gradle jar`, which will result in having jar under `build/distribution` folder.
+compilation you will have jar in your folder, which could be included as your dependency like this:
+```
+dependencies {
+    compile files('libs/slack-notification-0.1.1.jar')
+}
 ```
 
 ## Example of Application
